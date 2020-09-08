@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponents';
 import Dishdetails from './DishdetailComponent.js';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 import { DISHES } from '../shared/dishes';
 
 
@@ -25,11 +26,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <Navbar dark color={"primary"}>
-                    <div className="container">
-                        <NavbarBrand href={"/"}> Name Of Chow Spot</NavbarBrand>
-                    </div>
-                </Navbar>
+                <Header />
                 <Menu dishes={this.state.dishes}
                       onClick={(dishId) => this.onDishSelect(dishId)}/>
                 {/*// Here we are making good of the array operators, after we pass the dish information
@@ -40,6 +37,7 @@ class Main extends Component {
                 <Dishdetails
 
                     dish={this.state.dishes.filter((dish) =>dish.id === this.state.selectedDish )[0]} />
+                    <Footer />
             </div>
         );
     }
