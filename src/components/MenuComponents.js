@@ -43,8 +43,8 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from  'r
     // because the props is a javascript object we can easyly specify various properties, that will
     // be passed in as a javascript object
 
-function  RenderMenuItem({ dish, onClick }) {
-        // This function will simply return a view here
+  function RenderMenuItem({ dish, onClick }) {
+        // This function will simply return a view heree
     return(
         <Card key={dish.id}
               onClick={() => onClick(dish.id)}>
@@ -60,16 +60,16 @@ function  RenderMenuItem({ dish, onClick }) {
     const Menu = (props) => {
         // now the const menu props, this function will return the menu,
 
-        const menu = props.dishes.map((dish=>{
+        const menu = props.dishes.map((dish) => {
             return(
                 // Inside here is where we are iterating over all the
                 // Items
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <RenderMenuItem dish={dish} onClick={props.onClick} ></RenderMenuItem>
+                <div className="col-12 col-md-5 m-1" key={dish.id}>
+                    <RenderMenuItem dish={dish} onClick={props.onClick} />
                 </div>
             )
-        }));
-        console.log('render');
+        });
+
         return (
             <div className="container">
                 <div className="row">
