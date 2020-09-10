@@ -2,7 +2,6 @@ import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-// class Dishdetails extends Component{
 
    function ConvertDateToCommentDateFormat({timestamp}) {
         const date = new Date(timestamp);
@@ -71,7 +70,9 @@ import { Link } from 'react-router-dom';
         }
         else {
             return (
-                <div></div>
+                <div>
+
+                </div>
             );
         }
     }
