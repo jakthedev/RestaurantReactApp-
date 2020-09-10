@@ -34,25 +34,24 @@ class Main extends Component {
                    leader={this.state.leaders.filter((leader) => leader.featured) [0]}/>
            );
         }
+        // When this function is invoke this will get the parmeter that is require to display it.
+        const DishWithId = ({match}) => {
+            return(
+              <Dishdetails dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+                     comments={this.state.comments.filter((comment) => comment.id ===  parseInt(match.params.dishId,10))}
+                      />
+            );
+
+        }
+
+
         return (
             <div>
-                <Header />
-                {/*<Menu dishes={this.state.dishes}*/}
-                {/*      onClick={(dishId) => this.onDishSelect(dishId)}/>*/}
-                {/*// Here we are making good of the array operators, after we pass the dish information
-                to the javascript component, it goes into the dishes array and selects out the dish that was
-                   chosen information and pass that to the dish details components,
-                    To do this we make use of the arrays operators in javascript, to enables us to abstract
-                    the details of the selected dish. */}
-                {/*<Dishdetails*/}
-                {/*    dish={this.state.dishes.filter((dish) =>dish.id === this.state.selectedDish )[0]} />*/}
-
+                <Header/>
                 <Switch>
-                {/*Going to use the switch component to enclose a couple routes into the Main component
-                So we are going to route to the two views that we have just created(Home component)
-                also the Menu component*/}
                 <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes}/>} />
+                    <Route path="/menu/:dishId" component={DishWithId} />
                     <Route excact path="/contactus" component={Contact} />
                     <Redirect to="/home" />
                 </Switch>
