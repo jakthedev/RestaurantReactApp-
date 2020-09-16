@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from  'reactstrap';
+import { Card, CardImg, CardImgOverlay,
+    CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
   function RenderMenuItem({ dish, onClick }) {
-        // This function will simply return a view heree
     return(
-        <Card >
+        <Card>
             <Link to={`/menu/${dish.id}`}>
             <CardImg width="100%" src={dish.image} alt={dish.name}/>
             <CardImgOverlay className="ml-5">
@@ -15,16 +15,12 @@ import { Link } from 'react-router-dom';
             </Link>
         </Card>
     );
-
-}
+  }
 // turning this into is own functional component
     const Menu = (props) => {
-        // now the const menu props, this function will return the menu,
 
         const menu = props.dishes.map((dish) => {
             return(
-                // Inside here is where we are iterating over all the
-                // Items
                 <div className="col-12 col-md-5 m-1" key={dish.id}>
                     <RenderMenuItem dish={dish} />
                 </div>

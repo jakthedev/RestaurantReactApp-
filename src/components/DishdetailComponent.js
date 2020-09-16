@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react';
 import { Card, CardImg, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem , Button, Modal, ModalHeader, ModalBody,Row,Col, FormGroup, Label, Input } from 'reactstrap';
 import {Link} from 'react-router-dom';
-import ReactDOM from 'react-dom';
 import { Control, LocalForm,  Errors } from 'react-redux-form';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -13,7 +12,8 @@ class CommentForm extends Component {
     constructor (props){
         super(props);
         this.state={
-            isModalOpen: false
+            isModalOpen: false,
+            isNavOpen: false
         }
         this.toggleModal= this.toggleModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,9 +24,8 @@ class CommentForm extends Component {
         });
     }
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        // event.preventDefault();
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render(){
@@ -93,17 +92,9 @@ class CommentForm extends Component {
                         </LocalForm>
                     </ModalBody>
                 </Modal>
-
-
-
-
-
             </>
-
         );
-
     }
-
 }
 
 function RenderDish({dish}) {
@@ -122,51 +113,38 @@ function RenderDish({dish}) {
     }
     else {
         return(
-            <div></div>
+            <div>
+
+            </div>
         );
     }
 }
-function RenderComments({comments}){
-    const comment=comments.map((commentaire)=> {
-        return(
-            <div className="container">
-                <div key={commentaire.id}>
-                    <p>{commentaire.comment}</p>
-
-                    <p>--{commentaire.author} , {new Intl.DateTimeFormat ('en-US', { year:'numeric', month:'short', day: '2-digit'}).format(new Date(Date.parse( commentaire.date)))}</p>
+function RenderComments({comments, addComment, dishId}){
+        if (comments != null)
+            return(
+                <div className="col-12 col-md-5 m-1">
+                    <h4>Comments</h4>
+                    <ul className="list-unstyled">
+                        {comments.map((comment) => {
+                            return (
+                                <li key={comments.id}>
+                                    <p>{comments.comment}</p>
+                                    <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: '2-digit'
+                                    }).format(new Date(Date.parse(comment.date)))}</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <CommentForm dishId={dishId} addComment={addComment}/>
                 </div>
-            </div>
-        )
-
-    });
-
-    if(comment!=null){
-
-        return(
-            <div>
-                <header>
-                    <h4>Comments :</h4>
-                </header>
-                <ul>
-                    {comment}
-                    <CommentForm/>
-                </ul>
-
-
-            </div>
-
-
-
-
-        );
-    }
-    else{
-        return(
-            <div></div>
-        );
-    }
-
-
+            );
+        else
+            return(
+                <div> </div>
+            );
 }
 
 const Dishdetails =(props)=>{
@@ -196,7 +174,9 @@ const Dishdetails =(props)=>{
                     </div>
                     <div  className="col-12 col-md-5 m-1">
 
-                        <RenderComments comments={props.comments}/>
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id}/>
 
                     </div>
 
@@ -212,7 +192,7 @@ const Dishdetails =(props)=>{
     }
     else{
         return(
-            <div></div>
+            <div> </div>
         );
     }
 
