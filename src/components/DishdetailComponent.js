@@ -70,7 +70,6 @@ class CommentForm extends Component {
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be 15 characters or less'
                                         }}/>
-
                             </FormGroup>
                             <FormGroup >
                                 <Label htmlFor="comment"> Comment </Label>
